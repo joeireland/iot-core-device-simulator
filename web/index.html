@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Virtual IoT Workshop Device</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/dot-luv/jquery-ui.min.css">
+    <link rel="stylesheet" href="index.css">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="index.js"></script>
+  </head>
+
+  </body>
+    <div>
+      <img id="bg"   src="/images/grove-pi-built.png">
+      <img id="blue" src="/images/blue-led.png">
+      <img id="red"  src="/images/red-led.png">
+      <button id="button" class="ui-button ui-corner-all">Button</button>
+      <div id="angle">
+        <div id="slider-handle" class="ui-slider-handle"></div>
+      </div>
+      <audio id="buzzer">
+        <source src="https://www.soundjay.com/button/beep-11.mp3" type="audio/mpeg">
+      </audio>
+      <div id="dialog" title="IoT Device Simulator">
+        Welcome to the IoT device simulator. It simulates the hardware of the Raspberry Pi/Grove Pi+ sensor board used by the AWS IoT Workshop - https://github.com/joeireland/iot-core-workshop
+      </div>
+    </div>
+  </body>
+</html>
