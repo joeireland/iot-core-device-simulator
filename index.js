@@ -1,28 +1,30 @@
-const express = require('express');
-const http    = require('http');
-const WS      = require('ws');
+const express  = require('express');
+const http     = require('http');
+const minimist = require('minimist');
+const WS       = require('ws');
 
-const PORT   = 8080;
+const DEFAULT_PORT = 8080;
+
 const app    = express();
 const server = http.createServer(app);
 const wss    = new WS.Server({ server });
 
-let ws = null;
-
 function main() {
+  let args = minimist(process.argv.slice(2));
+  let port = args.port || DEFAULT_PORT;
+
   app.use('/', express.static('./web'));
 
   wss.on('connection', onWebSocketConnect);
 
-  server.listen(PORT, () => {
+  server.listen(port, () => {
     console.log('Listening: port=' + server.address().port);
   });
 }
 
-function onWebSocketConnect(connected, req) {
+function onWebSocketConnect(ws, req) {
   console.log('WebSocket Connected');
-  
-  ws = connected; 
+
   ws.on('message', onWebSocketMessage);
 
   flash();
@@ -55,16 +57,23 @@ function beep() {
 }
 
 function red(value) {
-  ws.send('{ "command": "red", "value": ' + value + ' }');
+  send({ command: 'red', value: value });
 }
 
 function blue(value) {
-  ws.send('{ "command": "blue", "value": ' + value + ' }');
+  send({ command: 'blue', value: value });
 }
 
 function buzzer(value) {
-  ws.send('{ "command": "buzzer", "value": ' + value + ' }');
+  send({ command: 'buzzer', value: value });
+}
+
+function send(command) {
+  wss.clients.forEach((ws) => {
+    if (ws.readyState === WS.OPEN) {
+      ws.send(JSON.stringify(command));
+    }
+  });
 }
 
 main();
-

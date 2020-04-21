@@ -59,6 +59,7 @@ function connect() {
 
   socket.onclose = function () {
     console.log('WebSocket Closed: ', socket.readyState);
+    setTimeout(connect, 1000);
   }
 }
 
