@@ -55,6 +55,9 @@ function connect() {
     else if (msg.command === 'buzzer') {
       buzzer(msg.value);
     }
+    else if (msg.command === 'angle') {
+      angle(msg.value);
+    }
   }
 
   socket.onclose = function () {
@@ -71,6 +74,12 @@ function red(value) {
 function blue(value) {
   console.log('Blue: ' + value);
   $('#blue').css('filter', 'grayscale(' + (value ? '0%' : '100%') + ')');
+}
+
+function angle(value) {
+  console.log('Set Angle: ' + value);
+  $('#angle').slider('option', 'value', value);
+  $('#slider-handle').text(value);
 }
 
 function buzzer(value) {

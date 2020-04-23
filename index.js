@@ -39,6 +39,7 @@ function onWebSocketMessage(message) {
   }
   else if (msg.sensor === 'angle') {
     console.log('Angle: ' + msg.value);
+    angle(msg.value);
   }
 }
 
@@ -62,6 +63,10 @@ function red(value) {
 
 function blue(value) {
   send({ command: 'blue', value: value });
+}
+
+function angle(value) {
+  send({ command: 'angle', value: value });
 }
 
 function buzzer(value) {
